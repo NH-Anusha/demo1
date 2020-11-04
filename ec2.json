@@ -1,14 +1,57 @@
 {
-    "AWSTemplateFormatVersion": "2010-09-09",
-    "Description": "First EC2 instance",
-    "Resources": {
-        "FirstLinuxEC2instance": {
-            "Type": "AWS::EC2::Instance",
-            "Properties": {
-                "AvailabilityZone": "ap-northeast-1c",
-                "ImageId": "ami-36f09350",
-                "InstanceType": "t2.micro",
-                "KeyName": "tokyo-pair",
+	"AWSTemplateFormatVersion": "2010-09-09",
+	"Description": "Template to create ec2 instance",
+	"Parameters": {
+	   "myKey": {
+	     "Type": "String"
+
+	   },
+	   "VPCID": {
+         "Type": "String"
+	   },
+	   "SubnetID": {
+	   "Type": "String"
+	   },
+	   "InstanceTypeParameter": {
+	     "Type": "String",
+	     "Default": "t2.micro",
+	     "AllowedValues": [
+	       "t2.micro",
+	       "t3.small"
+	     ]
+	   },
+	   "ImageId": {
+	     "Type": "String",
+	     "Default": "ami-0e01ee4ee18447327"
+	   }
+	},
+	"Resources": {
+	  "JenkinsMaster": {
+	    "Type": "AWS::EC2::Instance",
+	    "Properties": {
+	        "NetworkInterfaces":[{
+	              "AssociatePublicIpAddress":true,
+	              "DeviceIndex":"0",
+	              "GroupSet":[{"ref":"CICDSG"}],
+	              "SubnetId":{"ref":"SubnetID"}
+	        }
+	        ],
+	        "ImageId": {
+	           "Ref": "ImageId"
+	        },
+	        "InstanceType": {
+	           "Ref": "InstanceTypeParameter"
+	        },
+	        "Keyname": {
+	          "Ref": "myKey"
+	        },
+	        "Tags": [
+	          {
+                 "Key": "Name",
+                 "Value": "pipeline"
+	        }
+	        ],
+
                 "UserData": {
                     "Fn::Base64": {
                         "Fn::Join": [
