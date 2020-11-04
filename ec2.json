@@ -5,7 +5,6 @@
         "FirstLinuxEC2instance": {
             "Type": "AWS::EC2::Instance",
             "Properties": {
-                "AvailabilityZone": "ap-northeast-1c",
                 "ImageId": "ami-36f09350",
                 "InstanceType": "t2.micro",
                 "KeyName": "tokyo-pair",
@@ -14,6 +13,7 @@
                         "Fn::Join": [
                             "",
                             [
+
                                 "#!/bin/bash \n",
                                 "sudo yum install git \n"
                             ]
