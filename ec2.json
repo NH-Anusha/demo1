@@ -1,0 +1,26 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "First EC2 instance",
+    "Resources": {
+        "FirstLinuxEC2instance": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "AvailabilityZone": "ap-northeast-1c",
+                "ImageId": "ami-36f09350",
+                "InstanceType": "t2.micro",
+                "KeyName": "tokyo-pair",
+                "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "#!/bin/bash \n",
+                                "sudo yum install git \n"
+                            ]
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}
