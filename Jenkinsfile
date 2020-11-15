@@ -27,7 +27,7 @@ stage('Deploy') {
 
 steps {
   
-sh "/usr/local/bin/aws cloudformation create-stack --stack-name ec2-git --template-body file://ec2.json --region 'ap-northeast-1'"
+sh "/usr/local/bin/aws cloudformation create-stack --stack-name ec2-git-Stage --template-body file://ec2.json --region 'ap-northeast-1'"
 
 
 }
