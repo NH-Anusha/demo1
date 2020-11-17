@@ -1,0 +1,39 @@
+commit 8acf150fd3630791837b1da8580d15f5002c6637
+Author: NH-Anusha <hemaanusha.nimmala@dxc.com>
+Date:   Wed Nov 4 22:25:33 2020 +0530
+
+    first commit
+
+diff --git a/ec2.json b/ec2.json
+new file mode 100644
+index 0000000..11446f9
+--- /dev/null
++++ b/ec2.json
+@@ -0,0 +1,26 @@
++{
++    "AWSTemplateFormatVersion": "2010-09-09",
++    "Description": "First EC2 instance",
++    "Resources": {
++        "FirstLinuxEC2instance": {
++            "Type": "AWS::EC2::Instance",
++            "Properties": {
++                "AvailabilityZone": "ap-northeast-1c",
++                "ImageId": "ami-36f09350",
++                "InstanceType": "t2.micro",
++                "KeyName": "tokyo-pair",
++                "UserData": {
++                    "Fn::Base64": {
++                        "Fn::Join": [
++                            "",
++                            [
++                                "#!/bin/bash \n",
++                                "sudo yum install git \n"
++                            ]
++                        ]
++                    }
++                }
++            }
++        }
++    }
++}
+\ No newline at end of file
